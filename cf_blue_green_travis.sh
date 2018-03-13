@@ -17,7 +17,7 @@ sudo apt-get install cf-cli
 
 # Login to Cloud Foundry
 cf api $CF_API #Use the cf api command to set the api endpoint
-cf login -u $CF_PROD_USERNAME -p $CF_PROD_PASSWORD -o $CF_ORGANIZATION -s $CF_PROD_SPACE
+cf login -u $CF_USERNAME -p $CF_PASSWORD -o $CF_ORGANIZATION -s $CF_SPACE
 
 # Get the script path to execute the script
 pushd `dirname $0` > /dev/null
@@ -42,6 +42,9 @@ on_fail () {
   exit 1 
 }
 
+#Store the current path
+CURRENTPATH=$(pwd)
+
 # Set the application name in BLUE variable
 BLUE=$CF_APP 
 
@@ -49,9 +52,13 @@ BLUE=$CF_APP
 GREEN="${BLUE}-B"
 
 # Pull the up-to-date manifest from the BLUE (existing) application
-MANIFEST=$(mktemp -t "${BLUE}_manifest.temp")
+MANIFEST=$(mktemp -t "${BLUE}_manifestXXXXXXX.temp")
 
 # Create the new manifest file for deployment
+echo "Manifest file is: "
+echo $MANIFEST
+
+
 cf create-app-manifest $BLUE -p $MANIFEST
     
 # Find and replace the application name (to the name stored in green variable) in the manifest file
@@ -61,10 +68,13 @@ sed -i -e "s?path: ?path: $CURRENTPATH/?g" $MANIFEST
 trap on_fail ERR
     
 # Prepare the URL of the green application
+
 DOMAIN=$CF_DOMAIN
 cf push -f $MANIFEST -p /tmp/$CF_APP.war
+echo $GREEN
+echo $DOMAIN
 GREENURL=https://${GREEN}.${DOMAIN}
-    
+echo $GREENURL    
 # Check the URL to find if it fails
 curl --fail -I -k $GREENURL
 
