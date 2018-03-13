@@ -1,3 +1,23 @@
 sudo: false
 language: java
 jdk: oraclejdk8
+
+env:
+  global:
+  - secure: SPiZJZVPAQopPdQhRylZqpSGZfqawR62KP/m6Oz1MVTTgSym7ueTr03CYhtj0cZfKJY4gXmqMOgx9fqssaj0WttGM+IOmcYxb1CfrKN6Nc6iLguSMYPa7vvFdVFQegH0ZMT2XXoWoHTiiH58KrW8JWg3rto4zn6vw2uKbk0caO1jaAuY+eBNvh1+W+9NZ7nzV3zM47jJkR0SptsMI/fXhlbJdDIIeoLRRiBFo/Ywu5ln45yJj66PAs44YZ2il440y9jf7IpoK3CwcL2Q+SY48vQxEyKqOKBSDZ/NKL+OXRdxxFo61hKhHpJB2jZmEokJkQb4KgKRs9ukbJHjjXlkKZhtS/WkEl5tFdusSl42ROZf+FAPA7AgbIqpC4p99x1FhRhIOIT0ZBp8iphkDxefD5jciXtCcmrUQ4w3YhsC3CUfBqntMkBVVrDsNilTZPM9PCsyvUaFvOchMh3+KDRye7pIdxm0B+WTu/z/X68qB3LTcQNxWKaKkGgrHohbBS7fjKHaldPhp7jvQjZIMKq8Pc2/7f5/Ss6pyluf2Apd6uKdCw2Y0nW6tYFMo2mnhNuQ58RdmDhl9bxQh9AGx0Lymo9fxhI1nX2dmYSU01P4B6WlSeHcFXzn4Agu2OtH3EGzOvctp2CxU55kOjcRM8+SjKONlRYBifYK3hIRQ2OvO5Y=
+  - secure: dtxG5lY+BQ1Q7tvR0gps8dDFMveAx1mBe+fKMMVAiDRhHftl2OvJOtdt83wVG6qwiuFESZCvhSCqWIPpJWEVwcytmE3TEPu287zMw329MQJBvnQNKYwW2eP3Q/cckhMuXleC2/iScbaXEx47h4T1aZHxeW+/xFHI/S9jjRRO87yM4WIvJV2L1STm+3pdGlU8tn7+dlyfy8hOqm8io1vcus57oZGgNCg0HO2M7Rkl1o1BC/myYr+iGaUi8RwV7z4zC4otiBIH/Z44Tl/xLeerPoZfzmfOUYRS2ULkjf6JUtBRLXK4bzqiqw2A/3pceaSsfA2Zw06nIGm4T5KzgctPXQah8luq6akYuHCZiXZTJgNdxDDNKRGrqwyHB4tvV9358Ix4sMOhDCxJk/qyDj5ejatyXXkZQG93+D8EMgUrXUQB4Ai9cgAEk40cnDyzi0v9F8bXajfhgkWbfQHoNaZ6AuC7X7AUvd/y4D8/LQWENhmCCaL4+kS1m6aqVsShzGT8c7MRmBz7/RCG1aeXMfgqMM/bQLubVGHwsO2EyAesf2O7X2TSYbrmmy0l4EUOyK/E5YrMakGuslXJDFzQedbAgxQ0+fzNszW53HRmHb4CXtzHfqXuaR1eq6Gd2GIUamH386KydwjmZdRrO9Gwyn524agr+GWolqGU7xgWv7Rux48=
+  - CXX=g++-4.8
+
+script:
+- sudo mkdir /mvnbuild
+- mvn -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -P cloud-integration-tests clean install -Denv.CF_API=$CF_API -Denv.CF_ORGANIZATION=$CF_ORGANIZATION -Denv.CF_SPACE=$CF_SPACE -Denv.CF_USERNAME=$CF_USERNAME -Denv.CF_PASSWORD=$CF_PASSWORD
+
+- 'if [ $TRAVIS_TEST_RESULT -eq 0 ]; then
+ chmod +x ./cf_blue_green_travis.sh;
+ sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test;
+ sudo apt-get -qq update;
+ sudo apt-get -qq install g++-4.8;
+ sudo ./cf_blue_green_travis.sh;
+fi'
+
+sudo: required
