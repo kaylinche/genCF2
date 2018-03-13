@@ -1,0 +1,4 @@
+---
+applications:
+- name: testify
+  memory: 128M
