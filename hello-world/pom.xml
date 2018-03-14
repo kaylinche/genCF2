@@ -10,7 +10,7 @@
         <relativePath>..</relativePath>
     </parent>
 
-    <artifactId>testifyCF</artifactId>
+    <artifactId>testifyCF2</artifactId>
     <packaging>war</packaging>
 
     <build>
