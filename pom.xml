@@ -46,6 +46,7 @@
         <sap.cloud.space>${env.CF_SPACE}</sap.cloud.space>
         <sap.cloud.username>${env.CF_USERNAME}</sap.cloud.username>
         <sap.cloud.password>${env.CF_PASSWORD}</sap.cloud.password>
+        <sap.cloud.app>${sap.CF_APP}</sap.cloud.app>
 
         <!-- Properties that hold the local server configuration required for local integration-testing -->
         <local.server.root>${project.build.directory}/server</local.server.root>

@@ -30,7 +30,7 @@
         <profile>
             <id>cloud-integration-tests</id>
             <build>
-            <finalName>hello-world</finalName>
+            <finalName>${sap.cloud.app}</finalName>
                 <plugins>
                     <plugin>
                     <groupId>org.cloudfoundry</groupId>
@@ -42,7 +42,7 @@
                         <password>${sap.cloud.password}</password>
                         <space>${sap.cloud.space}</space>
                         <org>${sap.cloud.org}</org>
-                        <appname>testifyCF</appname>
+                        <appname>${sap.cloud.app}</appname>
                     </configuration>
                     <executions>					
                         <execution>
