@@ -320,7 +320,7 @@
             </build>
         </profile>
 
-        <profile>
+        <!-- <profile>
             <id>cloud-integration-tests</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -329,7 +329,7 @@
                 <plugins>
                 </plugins>
             </build>
-        </profile>
+        </profile> -->
 
         <profile>
             <id>local-integration-tests</id>
