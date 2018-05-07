@@ -5,7 +5,7 @@
 #
 
 # Exit immediately in case of non-zero status return
-Set -e
+# Set -e
 
 # Get the cloud foundry public key and add the repository
 wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
