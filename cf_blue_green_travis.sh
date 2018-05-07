@@ -53,6 +53,7 @@ GREEN="${BLUE}-B"
 
 # Pull the up-to-date manifest from the BLUE (existing) application
 MANIFEST=$(mktemp -t "${BLUE}_manifestXXXXXXX.temp")
+cat $MANIFEST
 
 # Create the new manifest file for deployment
 echo "Manifest file is: "
