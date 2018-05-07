@@ -1,4 +1,0 @@
----
-applications:
-- name: testifyCF
-  memory: 128M
