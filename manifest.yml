@@ -1,4 +1,4 @@
 ---
 applications:
-- name: hello-world
+- name: testifyCF
   memory: 128M
