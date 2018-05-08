@@ -46,10 +46,10 @@ on_fail () {
 CURRENTPATH=$(pwd)
 
 # Set the application name in BLUE variable
-BLUE=$CF_APP-B
+BLUE=$CF_APP
 
 # Green variable will store a temporary name for the application 
-GREEN="$CF_APP-G"
+GREEN="$BLUE-G"
 
 # Pull the up-to-date manifest from the BLUE (existing) application
 MANIFEST=$(mktemp -t "${BLUE}_manifestXXXXXXX.temp")
