@@ -70,6 +70,7 @@ then
   disk_quota: 512M
   routes:
   - route: $BLUE.$CF_DOMAIN" > $MANIFEST
+  cf push -f $MANIFEST -p /tmp/$CF_APP.war
 fi
 
 # Find and replace the application name (to the name stored in green variable) in the manifest file
