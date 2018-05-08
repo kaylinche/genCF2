@@ -54,8 +54,14 @@ GREEN="${BLUE}-B"
 # Pull the up-to-date manifest from the BLUE (existing) application
 MANIFEST=$(mktemp -t "${BLUE}_manifestXXXXXXX.temp")
 
+# Create the new manifest file for deployment
+echo "Manifest file is: "
+echo $MANIFEST
+
+cf create-app-manifest $BLUE -p $MANIFEST
+
 # Check in case of first run and empty manifest file
-if [ -s $MANIFEST ]
+if [ $? <> 0 ]
 then
   echo "applications:
   - name: $BLUE
@@ -66,12 +72,6 @@ then
   - route: $BLUE.$CF_DOMAIN" > $MANIFEST
 fi
 
-# Create the new manifest file for deployment
-echo "Manifest file is: "
-echo $MANIFEST
-
-cf create-app-manifest $BLUE -p $MANIFEST
-    
 # Find and replace the application name (to the name stored in green variable) in the manifest file
 sed -i -e "s/: ${BLUE}/: ${GREEN}/g" $MANIFEST
 sed -i -e "s?path: ?path: $CURRENTPATH/?g" $MANIFEST
@@ -99,5 +99,5 @@ cf delete-route $DOMAIN -n $GREEN -f
 
 # Clean up
 finally
-    
+
 echo "DONE"
