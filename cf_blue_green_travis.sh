@@ -64,7 +64,7 @@ cf create-app-manifest $BLUE -p $MANIFEST
 if [ $? <> 0 ]
 then
   echo "applications:
-  - name: $BLUE
+- name: $BLUE
   instances: 1
   memory: 1024M
   disk_quota: 512M
