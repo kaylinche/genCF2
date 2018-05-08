@@ -53,12 +53,22 @@ GREEN="${BLUE}-B"
 
 # Pull the up-to-date manifest from the BLUE (existing) application
 MANIFEST=$(mktemp -t "${BLUE}_manifestXXXXXXX.temp")
-cat $MANIFEST
+
+# Check in case of first run and empty manifest file
+if [ -s $MANIFEST ]
+then
+  echo "applications:
+  - name: $BLUE
+  instances: 1
+  memory: 1024M
+  disk_quota: 512M
+  routes:
+  - route: $BLUE.$CF_DOMAIN" > $MANIFEST
+fi
 
 # Create the new manifest file for deployment
 echo "Manifest file is: "
 echo $MANIFEST
-
 
 cf create-app-manifest $BLUE -p $MANIFEST
     
