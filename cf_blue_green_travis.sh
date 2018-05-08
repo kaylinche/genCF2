@@ -49,7 +49,7 @@ CURRENTPATH=$(pwd)
 BLUE=$CF_APP-B
 
 # Green variable will store a temporary name for the application 
-GREEN="${BLUE}-G"
+GREEN="$CF_APP-G"
 
 # Pull the up-to-date manifest from the BLUE (existing) application
 MANIFEST=$(mktemp -t "${BLUE}_manifestXXXXXXX.temp")
